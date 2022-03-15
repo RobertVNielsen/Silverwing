@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <% include ../includes/header.ejs %>
+    </head>
+
+    <body>
+      <div class="main-div">
+        <% include ../includes/nav.ejs %>
+
+        <div>
+          <form class="submission" action="/customers/submit_customer" method="POST">
+            <label for="name">Customer name</label>
+            <input name="name" type="text" />
+            <br />
+
+            <label for="priceTable">Price table</label>
+            <select name="priceTable">
+              <option value="">-- Select a price table --</option>
+              <option value="A">A</option>
+              <option value="B">B</option>
+              <option value="C">C</option>
+            </select><br/><br/>
+
+            <button class="wide" type="submit">Create Customer!</button>
+          </form>
+        </div>
+
+        <% include ../includes/footer.ejs %>
+      </div>
+    </body>
+</html>

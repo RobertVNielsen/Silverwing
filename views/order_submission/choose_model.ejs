@@ -1,0 +1,72 @@
+<!-- <!DOCTYPE html>
+<html>
+    <head>
+        <% include ../includes/header.ejs %>
+
+    </head>
+
+    <body>
+      <div class="main-div">
+        <% include ../includes/nav.ejs %> -->
+
+
+
+        <button class="modelButton" type="button" onclick="showFirst()">
+          <a>
+            Back
+          </a>
+        </button>
+        <table class='models'>
+          <caption>
+            Choose a model
+          </caption>
+          <% for (var i = 0; i < models.length; i += 3) { %>
+            <tr>
+              <td>
+                <% var model = models[i] %>
+                <button class="modelButton" type="button" onclick="selectModel(<%= i %>)">
+                  <a>
+                    <!-- <input name="modelCheckbox" value="<%= model.name %>" /> -->
+                    <img width="200" height="200" src="https://i1.wp.com/silverwingtrailers.com/wp-content/uploads/2018/09/trailer.jpg?resize=300%2C300&amp;ssl=1">
+                    <br />
+                    <%= model.name %>
+                  </a>
+                </button>
+              </td>
+              <% if ((i+1) < models.length) { %>
+                <td>
+                  <% model = models[i+1] %>
+                  <button class="modelButton" type="button" onclick="selectModel('<%= model.name %>', [<%= model.features %>])">
+                    <a>
+                      <!-- <input name="modelCheckbox" value="<%= model.name %>" /> -->
+                      <img width="200" height="200" src="https://i1.wp.com/silverwingtrailers.com/wp-content/uploads/2018/09/trailer.jpg?resize=300%2C300&amp;ssl=1">
+                      <br />
+                      <%= model.name %>
+                    </a>
+                  </button>
+                </td>
+              <% } %>
+              <% if ((i+2) < models.length) { %>
+                <td>
+                  <% model = models[i+2] %>
+                  <button class="modelButton" type="button" onclick="selectModel('<%= model.name %>', [<%= model.features %>])">
+                    <a>
+                      <!-- <input name="modelCheckbox" value="<%= model.name %>" /> -->
+                      <img width="200" height="200" src="https://i1.wp.com/silverwingtrailers.com/wp-content/uploads/2018/09/trailer.jpg?resize=300%2C300&amp;ssl=1">
+                      <br />
+                      <%= model.name %>
+                    </a>
+                  </button>
+                </td>
+              <% } %>
+            </tr>
+          <% } %>
+        </table>
+
+        <!-- <br />
+        <br />
+        <br />
+        <% include ../includes/footer.ejs %>
+      </div>
+    </body>
+</html> -->

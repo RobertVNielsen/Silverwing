@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <% include ../includes/header.ejs %>
+    </head>
+
+    <body>
+      <div class="main-div">
+        <% include ../includes/nav.ejs %>
+
+        <div>
+          <form class="submission" action="/price_tables/submit_price_table" method="POST">
+            <label for="name">Product name</label>
+            <input name="name" type="text" />
+            <br />
+
+            <select name="category">
+              <option value="">-- Select a product type --</option>
+              <option value="model">Model</option>
+              <option value="feature">Feature</option>
+            </select><br/><br/>
+
+            <label for="A">Price A</label>
+            <input name="A" type="number" />
+            <br />
+
+            <label for="B">Price B</label>
+            <input name="B" type="number" />
+            <br />
+
+            <label for="C">Price C</label>
+            <input name="C" type="number" />
+            <br />
+
+            <button class="wide" type="submit">Create Product!</button>
+          </form>
+        </div>
+
+        <% include ../includes/footer.ejs %>
+      </div>
+    </body>
+</html>

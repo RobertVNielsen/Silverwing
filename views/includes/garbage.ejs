@@ -1,0 +1,26 @@
+<div class="orders">
+  <table class="playlists">
+      <!-- <caption>
+
+      </caption> -->
+      <tr>
+          <th>Model</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Date</th>
+          <th></th>
+      </tr>
+      <% for (var i = 0; i < orders.length; i++) { %>
+          <tr>
+              <td><%= orders[i].model %></td>
+              <td><%= orders[i].quantity %></td>
+              <td><%= orders[i].price %></td>
+              <td><%= orders[i].date %></td>
+              <td>
+                <button class="delete">X</button>
+
+              </td>
+          </tr>
+      <% } %>
+  </table>
+</div>

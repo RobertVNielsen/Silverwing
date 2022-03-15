@@ -1,0 +1,345 @@
+/* CSS HEX
+/* #dccca3ff /* --dutch-white */
+/* #061a40ff /* --oxford-blue */
+/* #e4572eff /* --flame */
+/* #17bebbff /* --maximum-blue-green */
+/* #285238ff /* --brunswick-green */
+
+
+
+tr:hover, th {
+  /* border: solid; */
+  background-color:  inherit; /* #dccca3ff /* --dutch-white */;
+}
+
+tr:hover {
+  /* background-color: rgb(0, 36, 150); */
+}
+
+table.ordersTable {
+  padding: 20px;
+  width: 80%;
+  margin: auto;
+  margin-top: 35px;
+}
+
+table.ordersTable th {
+  font-size: 18px;
+  padding-top: 15px;
+}
+
+table.ordersTable td {
+  font-size: 16px;
+  padding: 0 5px;
+  /* min-width: 50px; */
+}
+
+table.ordersTable td.icon {
+  width: 18px;
+}
+
+table.itemsTable {
+  padding: 20px;
+  width: 100%;
+  margin: auto;
+  margin-top: 35px;
+}
+
+table.itemsTable th {
+  font-size: 18px;
+  padding-top: 15px;
+}
+
+table.itemsTable td {
+  font-size: 16px;
+  padding: 0 5px;
+  /* min-width: 50px; */
+}
+
+table.singleOrderTable td.icon {
+  width: 18px;
+}
+
+table.singleOrderTable {
+  padding: 20px;
+  width: 100%;
+  margin: auto;
+  table-layout: fixed;
+  margin-top: 35px;
+}
+
+table.singleOrderTable th {
+  font-size: 18px;
+  padding-top: 15px;
+}
+
+table.singleOrderTable td {
+  font-size: 16px;
+  padding: 0 5px;
+}
+
+table.itemsTable td.icon {
+  width: 18px;
+}
+
+table.models {
+  padding: 20px;
+  width: 100%;
+  margin: auto;
+  margin-top: 35px;
+}
+
+td.minHeight {
+  height: 75px;
+}
+
+p {
+    font-size: 50px;
+}
+input[type=text], input[type=password], input[type=date], input[type=number], textarea, select, button {
+    font: inherit;
+    width : 100%;
+    height: 40px;
+    padding: 10px;
+    margin: 3% 0;
+    box-sizing: border-box;
+}
+
+.sortIcon {
+  width:18px;
+  height: 18px;
+  border: none;
+  background-color: inherit;
+
+  font: inherit;
+  /* width : 100%; */
+  /* height: 40px; */
+  padding: 2px 0px;
+  margin: 2px 0;
+  box-sizing: content-box;
+}
+
+form.filters {
+  width: 80%;
+  margin: auto;
+  margin-top: 40px;
+  border-width: 1px;
+  border-color: rgb(216 216 216); /* #17bebbff /* --maximum-blue-green */;
+  border-style: none none solid none;
+
+  font-weight: bold;
+}
+
+u.entryCount {
+  font-weight: bolder;
+  text-decoration: underline;
+}
+
+input.filters, button {
+  width: auto;
+  margin-top: 5px;
+  font-weight: normal;
+}
+
+button.newOrder {
+  margin-left: 20%;
+}
+
+button.editOrder {
+  margin-left: 70%;
+  margin-top: 15px;
+}
+
+button.wide {
+  width: 100%;
+  /* background-color: rgb(216 216 216); */
+}
+
+button.addItem {
+  /* width: 100%; */
+  background-color: rgb(216 216 216);
+  color: #757575;
+}
+
+input.otherprice {
+  width: 40%;
+}
+
+input[type=radio] {
+  width : 20px;
+  height: 20px;
+  /* padding: 10px; */
+  /* margin: 3% 0; */
+  box-sizing: border-box;
+}
+
+button {
+    background-color: rgb(0, 36, 150);
+    color: white;
+    height:auto;
+}
+
+.light {
+  background-color: rgb(230 230 230);
+}
+
+.dark {
+  background-color: rgb(216 216 216);
+}
+
+.priceLabel {
+  font-size: 18px;
+  margin-top: 5px;
+}
+
+body {
+    font  : 16px "Raleway";
+    /* width: 1000px; */
+    padding : 0 2.5em;
+    /* margin  : auto; */
+    background-color: rgb(230 230 230); /* #dccca3ff /* --dutch-white */;
+    color: #757575;
+    height: 100%;
+}
+
+.main-div {
+  width: 1150px;
+  /* height: 100%; */
+  min-height: 1000px;
+  margin: auto;
+  background-color: white;
+  border-width: 1px;
+  border-color: rgb(230 230 230);
+  /* box-shadow: 2px 2px rgb(230 230 230); */
+  border-style: none solid none solid;
+}
+
+nav {
+    background-color : inherit; /*  #061a40ff /* --oxford-blue */;
+    /* margin-top: 30px; */
+    margin-bottom: 5px;
+    width: 100%;
+    height: auto;
+    padding: 20px;
+    border-width: 1px;
+    border-color: rgb(216 216 216); /* #17bebbff /* --maximum-blue-green */;
+    border-style: none none solid none;
+    /* border-bottom: 5px; */
+
+    font-family: Roboto Condensed;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0px;
+    text-transform: uppercase;
+    color: #757575;
+    box-shadow: 0px 2px rgb(230 230 230);
+    /* text-align: center; */
+}
+
+nav a {
+  /* background-color: #17bebbff /* --maximum-blue-green */
+  color: inherit; /* #285238ff /* --brunswick-green */;
+  padding: 30px;
+  margin: auto;
+}
+
+form.auth button {
+  float: right;
+  font-family: Roboto Condensed;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0px;
+  text-transform: uppercase;
+  color: #757575;
+  background-color: white;
+  border: none;
+}
+
+nav a:hover {
+  /* background-color: #17bebbff /* --maximum-blue-green */
+  color: black; /* #285238ff /* --brunswick-green */;
+  /* padding: 10px; */
+}
+
+nav img {
+  /* background-color: #17bebbff /* --maximum-blue-green */
+  /* float: left; */
+  box-sizing: border-box;
+}
+
+button.delete {
+    background-color: transparent;
+    color: #e4572eff /* --flame */;
+    width: auto;
+    border: none;
+    float: right;
+}
+
+button.editPrice {
+  background-color: inherit;
+  font-size: 12px;
+  border: none;
+  color: rgb(50, 65, 80);
+  margin: 2px;
+  padding: 2px;
+}
+
+input.smallTextbox {
+  height: 20px;
+  width: 20%;
+  font-size: 16px;
+  margin: 2px;
+  padding: 2px;
+}
+
+button.editPrice:hover {
+  text-decoration: underline;
+}
+
+button.modelButton {
+  background-color: transparent;
+  border: solid;
+}
+
+button.modelButton:hover {
+  border-color: rgb(230 230 230);
+}
+
+div.orders {
+  width  : 65%;
+  height : 100%;
+  background-color:  inherit; /* #285238ff /* --brunswick-green */;
+  float: right;
+  padding: 5px;
+}
+
+div.orderDiv {
+  margin: 20px 5%;
+}
+
+.submission  {
+
+    width  : 80%;
+    height : auto;
+    margin : auto;
+    padding: 50px;
+    background-color: inherit; /* #dccca3ff /* --dutch-white */;
+    /* border-style: double; */
+    /* border-color: black; /*  #dccca3ff /* --dutch-white ; */
+}
+
+footer {
+  /* display: flex;
+  align-items: stretch; */
+  background-color: rgb(50, 65, 80);
+  /* min-height: 275px; */
+  height: 700px;
+  border-top: solid 4px grey;
+  font-size: 12px;
+  color: rgb(216 216 216);
+}
+
+footer a {
+  font-size: 8px;
+  color: inherit;
+}
