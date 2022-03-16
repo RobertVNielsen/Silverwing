@@ -1,0 +1,97 @@
+<!-- <!DOCTYPE html>
+<html>
+    <head>
+        <% include ../includes/header.ejs %>
+        <script>
+          function seeCustomPrice() {
+            document.getElementById('cprice').hidden = false;
+            document.getElementById('cpricelabel').hidden = false;
+            document.getElementsByName('cpBreak').hidden = false;
+          }
+
+          function hideCustomPrice() {
+            document.getElementById('cprice').hidden = true;
+            document.getElementById('cpricelabel').hidden = true;
+            document.getElementsByName('cpBreak').hidden = true;
+          }
+
+          function addToPrice(cbox, val) {
+            let price = parseInt(document.getElementById('price').innerHTML.split('$')[1]);
+            // console.log(price);
+            if (cbox.checked) {
+              price += val;
+            } else {
+              price -= val;
+            }
+
+            document.getElementById('price').innerHTML = "Price: $" + price;
+          }
+
+        </script>
+    </head>
+
+    <body>
+      <div class="main-div">
+        <% include ../includes/nav.ejs %> -->
+        <button class="modelButton" type="button" onclick="showSecond()">
+          <a>
+            Back
+          </a>
+        </button>
+        <!-- <form class="submission" action="/order_submission/submit_order" method="POST"> -->
+          <h1>
+            Choose features and price
+          </h1>
+          <h5>
+            <br />
+            <div id="modelName">ph</div>
+            <br />
+            Base Price: $<span id="price_B">PRICE</span>
+            <button id="edit_price_button_B" type="button" class="editPrice" onclick="editablePrice('B')"><img src="../images/browser.png" width="16px" height="auto" /></button>
+            <button id="default_price_button_B" type="button" class="editPrice" hidden>Default price</button>
+          </h5>
+
+          <br />
+
+
+
+          <% for (var i = 0; i < features.length; i++) { %>
+             <label>
+               <input type="checkbox" name="features" value="<%= features[i].name %>" onclick="calcPrice()">
+               <%= features[i].name %>  ($<span id="price_<%= i %>"><%= features[i].prices[defaultPriceTable] %></span>)
+               <button id="edit_price_button_<%= i %>" type="button" class="editPrice" onclick="editablePrice(<%= i %>)"><img src="../images/browser.png" width="16px" height="auto" /></button>
+               <button id="default_price_button_<%= i %>" type="button" class="editPrice" onclick="defaultPrice(<%= i %>)" hidden>Default price</button>
+             </label><br>
+           <% } %>
+
+
+          <!-- <input type="checkbox" id="vehicle2" name="vehicle2" value="Car" onclick="addToPrice(this, 15)">
+          <label for="vehicle2"> Feature 2 ($15)</label><br>
+          <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat" onclick="addToPrice(this, 85)">
+          <label for="vehicle3"> Feature 3 ($85)</label><br>
+          <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" onclick="addToPrice(this, 30)">
+          <label for="vehicle1"> Feature 4 ($30)</label><br>
+          <input type="checkbox" id="vehicle2" name="vehicle2" value="Car" onclick="addToPrice(this, 45)">
+          <label for="vehicle2"> Feature 5 ($45)</label><br>
+          <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat" onclick="addToPrice(this, 60)">
+          <label for="vehicle3"> Feature 6 ($60)</label><br> -->
+
+          <label class="priceLabel" id="price" for="price" >Price: $1299</label><br/>
+          <!-- <input type="radio" name="price" value="1400" onclick="hideCustomPrice()">$1400<br/>
+          <input type="radio" name="price" value="1500" onclick="hideCustomPrice()">$1500<br/>
+          <input type="radio" name="price" value="1650" onclick="hideCustomPrice()">$1650<br/>
+          <input type="radio" name="price" value="cprice" onclick="seeCustomPrice()">Custom Price<br/><br/> -->
+
+          <label id="cpricelabel" for="cprice" hidden>Custom Price</label><br name="cpBreak" hidden />
+          <input id="cprice" type="number" name="cprice" hidden /><br name="cpBreak" hidden /><br name="cpBreak" hidden />
+          <br />
+          <br />
+
+          <label for="quantity">Quantity</label><br/>
+          <input type="number" id="quantity" name="quantity"><br/><br/>
+          <button type="button" onclick="addItemToOrder()">Add item to order</button>
+        <!-- </form> -->
+        <!-- <% include ../includes/footer.ejs %>
+      </div>
+    </body>
+</html> -->

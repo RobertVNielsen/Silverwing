@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <% include ../includes/header.ejs %>
+    </head>
+
+    <body>
+      <div class="main-div">
+        <% include ../includes/nav.ejs %>
+
+        <!-- <a href="/customers/add_customer">Add customer</a> -->
+
+        <table class="ordersTable">
+            <caption>
+              <a href="/customers/add_customer"><button class="filters">Add Customer</button></a>
+              <br />
+              <br />
+              Customers
+            </caption>
+            <tr>
+                <!-- <th></th> -->
+                <th>Name</th>
+                <th>Price table</th>
+                <th></th>
+            </tr>
+            <% for (var i = 0; i < customers.length; i++) { %>
+              <% if (i % 2 == 0) { %>
+                <tr class="light">
+              <% } else { %>
+                <tr class="dark">
+              <% } %>
+                    <td><%= customers[i].title %></td>
+                    <td><%= customers[i].priceTable %></td>
+                    <td>
+                      <form action="/customers/delete_customer" method="POST">
+                        <input type="hidden" name="id" value="<%= customers[i]._id %>">
+                        <button type="submit" class="delete">
+                          <img src="../images/bin.png" width="18px" height="auto" />
+                        </button>
+                      </form>
+                    </td>
+                </tr>
+            <% } %>
+        </table>
+
+        <% include ../includes/footer.ejs %>
+      </div>
+    </body>
+</html>
+
+
+<td><form action="/view_orders/delete_order' +'" method="POST"  onsubmit="confirmDelete()">'+
+          '' +
+          '<button type="g" width="18px" height="auto" /></button>';

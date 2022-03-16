@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <% include ../includes/header.ejs %>
+    </head>
+
+    <body>
+      <div class="main-div">
+        <% include ../includes/nav.ejs %>
+
+
+        <table class="ordersTable">
+
+            <caption>
+              <a href="/price_tables/add_price_table"><button class="filters">Add Product</button></a>
+              <br />
+              <br />
+              Models
+            </caption>
+            <tr>
+                <!-- <th></th> -->
+                <th>Name</th>
+                <th>Price A</th>
+                <th>Price B</th>
+                <th>Price C</th>
+            </tr>
+            <% for (var i = 0; i < models.length; i++) { %>
+              <% if (i % 2 == 0) { %>
+                <tr class="light">
+              <% } else { %>
+                <tr class="dark">
+              <% } %>
+                    <td><%= models[i].name %></td>
+                    <% console.log(models[i].name) %>
+                    <% for (var iPrice = 0; iPrice < models[i].prices.length || 0; iPrice++) { %>
+                      <td>$<%= models[i].prices[iPrice] %>.00</td>
+                    <% } %>
+                    <td>
+                      <form action="/price_tables/delete_product" method="POST">
+                        <input type="hidden" name="id" value="<%= models[i]._id %>">
+                        <button type="submit" class="delete">
+                          <img src="../images/bin.png" width="18px" height="auto" />
+                        </button>
+                      </form>
+                    </td>
+                </tr>
+            <% } %>
+        </table>
+
+        <table class="ordersTable">
+            <caption>
+              Features
+            </caption>
+            <tr>
+                <!-- <th></th> -->
+                <th>Name</th>
+                <th>Price A</th>
+                <th>Price B</th>
+                <th>Price C</th>
+            </tr>
+            <% for (var i = 0; i < features.length; i++) { %>
+              <% if (i % 2 == 0) { %>
+                <tr class="light">
+              <% } else { %>
+                <tr class="dark">
+              <% } %>
+                    <td><%= features[i].name %></td>
+                    <% for (var iPrice = 0; iPrice < features[i].prices.length; iPrice++) { %>
+                      <td>$<%= features[i].prices[iPrice] %>.00</td>
+                    <% } %>
+                    <td>
+                      <form action="/price_tables/delete_product" method="POST">
+                        <input type="hidden" name="id" value="<%= features[i]._id %>">
+                        <button type="submit" class="delete">
+                          <img src="../images/bin.png" width="18px" height="auto" />
+                        </button>
+                      </form>
+                    </td>
+                </tr>
+            <% } %>
+        </table>
+        <br />
+        <br />
+        <% include ../includes/footer.ejs %>
+      </div>
+    </body>
+</html>

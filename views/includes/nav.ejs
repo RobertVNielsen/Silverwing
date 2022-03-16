@@ -1,0 +1,24 @@
+
+
+
+
+
+
+
+
+<nav id="nav">
+  <% if (secondLayer) { %>
+    <img src="../../images/logotm.png"  width="auto" height="43" />
+  <% } else { %>
+    <img src="../images/logotm.png"  width="auto" height="43" />
+  <% } %>
+  <a href="/view_orders/order_table">Order Table</a>
+  <a href="/order_submission/add_order">Order Submission</a>
+  <a href="/customers/customer_table">Customers</a>
+  <a href="/price_tables/price_table_table">Products</a>
+  <a href="/reports/report_creation">Reports</a>
+
+  <form class="auth" action="/authentication/logout" method="POST">
+        <button type="submit">Logout</button>
+    </form>
+</nav>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <% include ../includes/header.ejs %>
+
+    </head>
+
+    <body>
+      <div class="main-div">
+        <!-- <% include ../includes/nav.ejs %> -->
+
+        <div class="login">
+            <form class="submission" action="/authentication/login" method="POST">
+                <!--<label for="username" >Username</label>-->
+                <input type="text" name="username" id="username" placeholder="Username" required><br/>
+                <!--<label for="password">Password</label><br/>-->
+                <input type="password" name="password" id="password" placeholder="Password" required><br/><br/>
+                <button class="wide" type="submit">Log in</button>
+                <br/><br/>
+                <a href="signup">Don't have an account?</a>
+            </form>
+
+        </div>
+        <% include ../includes/footer.ejs %>
+      </div>
+    </body>
+</html>
