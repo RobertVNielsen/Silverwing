@@ -30,10 +30,14 @@ exports.addCustomerPage = (req, res, next) => {
 exports.postAddCustomer = (req, res, next) => {
   const name = req.body.name;
   const priceTable = req.body.priceTable;
+  const phone = req.body.phone;
+  const email = req.body.email;
 
   const customer = new Customer({
     title: name,
-    priceTable: priceTable
+    priceTable: priceTable,
+    phone: phone,
+    email: email
   });
 
   customer

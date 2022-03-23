@@ -18,7 +18,7 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 const session = require('express-session')
 const flash = require('connect-flash')
-const PORT = process.env.PORT || 5000 // So we can run on heroku || (OR) localhost:5000
+const PORT = process.env.PORT || 80 // So we can run on heroku || (OR) localhost:5000
 
 
 const app = express();
@@ -74,7 +74,7 @@ app.use(express.static(path.join(__dirname, 'public')))
    //.set('view engine', 'hbs')
    .use(bodyParser({extended: false})) // For parsing the body of a POST
    // .use('/db', dbRoutes)
-   
+
    .use('/order_submission', orderSubmissionRoutes)
    .use('/authentication', authenticationRoutes)
    .use('/view_orders', viewOrdersRoutes)

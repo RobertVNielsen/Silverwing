@@ -10,6 +10,14 @@ const customerSchema = new Schema({
     priceTable: {
         type: String,
         required: false
+    },
+    phone: {
+        type: String,
+        required: false
+    },
+    email: {
+        type: String,
+        required: false
     }
 })
 

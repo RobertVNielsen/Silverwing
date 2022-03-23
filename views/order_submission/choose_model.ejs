@@ -36,7 +36,7 @@
               <% if ((i+1) < models.length) { %>
                 <td>
                   <% model = models[i+1] %>
-                  <button class="modelButton" type="button" onclick="selectModel('<%= model.name %>', [<%= model.features %>])">
+                  <button class="modelButton" type="button" onclick="selectModel(<%= i+1 %>)">
                     <a>
                       <!-- <input name="modelCheckbox" value="<%= model.name %>" /> -->
                       <img width="200" height="200" src="https://i1.wp.com/silverwingtrailers.com/wp-content/uploads/2018/09/trailer.jpg?resize=300%2C300&amp;ssl=1">
@@ -49,7 +49,7 @@
               <% if ((i+2) < models.length) { %>
                 <td>
                   <% model = models[i+2] %>
-                  <button class="modelButton" type="button" onclick="selectModel('<%= model.name %>', [<%= model.features %>])">
+                  <button class="modelButton" type="button" onclick="selectModel(<%= i+2 %>)">
                     <a>
                       <!-- <input name="modelCheckbox" value="<%= model.name %>" /> -->
                       <img width="200" height="200" src="https://i1.wp.com/silverwingtrailers.com/wp-content/uploads/2018/09/trailer.jpg?resize=300%2C300&amp;ssl=1">
