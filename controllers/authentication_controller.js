@@ -15,7 +15,7 @@ exports.authenticate = (req, res, next) => {
     User.findOne({username:username})
         .then(user => {
             if (!user) {
-                res.redirect('authentication/login')
+                res.redirect('../authentication/login')
             }
             crypt
                 .compare(password, user.password)
@@ -32,7 +32,7 @@ exports.authenticate = (req, res, next) => {
                     console.log('2')
                     //req.flash('failed', "Invalid email or password");
 
-                    res.redirect('authentication/login');
+                    res.redirect('../authentication/login');
                 })
                 .catch(err => {
                     console.log(err);

@@ -93,6 +93,10 @@ td.minHeight {
   height: 75px;
 }
 
+td.featureRow {
+  font-size: 45px;
+}
+
 p {
     font-size: 50px;
 }
@@ -103,6 +107,11 @@ input[type=text], input[type=password], input[type=date], input[type=number], te
     padding: 10px;
     margin: 3% 0;
     box-sizing: border-box;
+}
+
+textarea {
+  resize: none;
+  height: 120px;
 }
 
 .sortIcon {

@@ -9,9 +9,9 @@
 
             moneyFormat = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' })
 
-            tempStr += 'ORDER ID: ' + order.id + '<br />';
+            // tempStr += 'ORDER ID: ' + order.id + '<br />';
             tempStr += 'CUSTOMER: ' + order.customer + '<br />';
-            tempStr += 'ORDER DATE: ' + order.orderDate + '<br />';
+            // tempStr += 'ORDER DATE: ' + order.orderDate + '<br />';
             tempStr += 'NEED DATE: ' + order.needDate + '';
 
             tempStr += '<table id="singleOrderTable" class="singleOrderTable">';
@@ -37,7 +37,7 @@
               // tempStr += '<br />';
             }
             tempStr += '</tbody></table><br /><br />';
-
+            tempStr += 'Notes: <br /><br />' + order.notes + '<br /><br />';
 
             // if (getQueryVariable('pdf')) {
             //   document.getElementById('nav').hidden = true;

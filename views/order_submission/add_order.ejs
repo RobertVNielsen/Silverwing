@@ -85,6 +85,7 @@
           function selectModel(i) {
             let models = JSON.parse('<%-JSON.stringify(models)%>')
             document.getElementById('modelName').innerHTML = models[i].name;
+            document.getElementById('priceTable').innerHTML = "Default prices from price table " + "ABCDEFGHIJKLMNOPQRSTUVWXYZ"[<%= defaultPriceTable %>];
 
             document.getElementById('price_B').innerHTML = models[i].prices[<%= defaultPriceTable %>];
             document.getElementById('default_price_button_B').setAttribute("onclick", "defaultPrice(" + (-(i+1)) + ")")
@@ -263,12 +264,14 @@
             } else {
               idCreation();
               setToTodaysDate();
+              // selectModel(0);
             }
 
             loadCustomerOptions();
           }
 
         </script>
+        <link rel="stylesheet" type="text/css" href="/stylesheets/w3schools.css" />
     </head>
 
     <body onload="loadForm()">
@@ -299,6 +302,7 @@
                 <label for="needDate">Date needed (optional)</label><br/>
                 <input id="needDate" type="date" name="needDate" value=""><br/><br/>
 
+                <hr />
                 <table class="itemsTable">
 
                     <tr>
@@ -316,11 +320,17 @@
                 <div id="noItems">There are no items in this order. Add an item!</div><br/><br/>
                 <span id="inputs"></span>
 
-                <button class="addItem" type="button" onclick="showSecond()">Add Item</button>  <hr />
+                <button class="addItem" type="button" onclick="showSecond()">Add Item</button>
+                <hr />
+
+                <label for="notes">Notes</label><br/>
+                <textarea name="notes"></textarea><br/><br/>
+
                 <button class="wide" type="submit">Submit Order!</button>
             </form>
                 <!-- <a href="/signup">Don't have an account?</a> -->
             </div>
+
             <div class="submission" id="second" hidden><% include choose_model.ejs %></div>
             <div class="submission" id="third" hidden><% include item_specs.ejs %></div>
 

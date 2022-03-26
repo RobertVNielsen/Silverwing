@@ -37,7 +37,7 @@
               // tempStr += '<br />';
             }
             tempStr += '</tbody></table><br /><br />';
-
+            tempStr += 'Notes: <br />' + order.notes + '<br /><br />';
               if (getQueryVariable('pdf')) {
               // document.getElementById('nav').hidden = true;
               document.getElementById('footer').hidden = true;
@@ -77,13 +77,13 @@
     <body onload="displayOrder()">
       <div class="main-div">
         <% include ../includes/nav.ejs %>
-
+        <!-- <br /> -->
         <div class="orderDiv" id="orderDiv">
           <a href='/view_orders/order_table' id="backLink">
             <img src="../../images/back.png" width="18px" height="auto">
           </a>
-          <button id="editOrder" class="editOrder" type="button">Edit Order</button>
-          <br />
+          <!-- <button id="editOrder" class="editOrder" type="button">Edit Order</button> -->
+          <br /><br /><br />
           <!-- <br /> -->
         </div>
 

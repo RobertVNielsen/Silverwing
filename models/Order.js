@@ -31,6 +31,10 @@ const orderSchema = new Schema({
   needDate: {
       type: String,
       required: false
+  },
+  notes: {
+      type: String,
+      required: false
   }
 })
 

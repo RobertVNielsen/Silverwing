@@ -1,13 +1,14 @@
 const express = require("express");
 const router = express.Router();
+const auth = require("../middleware/auth");
 const controller = require("../controllers/customers_controller");
 
-router.get("/add_customer", controller.addCustomerPage);
-router.get("/customer_table", controller.customerTablePage);
-router.get("/display_customer", controller.displayCustomerPage);
-router.get("/customers", controller.editCustomerPage);
+router.get("/add_customer", auth, controller.addCustomerPage);
+router.get("/customer_table", auth, controller.customerTablePage);
+router.get("/display_customer", auth, controller.displayCustomerPage);
+router.get("/customers", auth, controller.editCustomerPage);
 
-router.post("/submit_customer", controller.postAddCustomer);
-router.post("/delete_customer", controller.postDeleteCustomer);
+router.post("/submit_customer", auth, controller.postAddCustomer);
+router.post("/delete_customer", auth, controller.postDeleteCustomer);
 
 module.exports = router;

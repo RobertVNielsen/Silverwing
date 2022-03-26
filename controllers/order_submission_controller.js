@@ -110,6 +110,7 @@ exports.postSubmitOrder = (req, res, next) => {
     const quantities = req.body.quantities;
     const orderDate = req.body.orderDate;
     const needDate = req.body.needDate;
+    const notes = req.body.notes;
     console.log(req.body);
 
     if (!Array.isArray(models)) {
@@ -162,7 +163,8 @@ exports.postSubmitOrder = (req, res, next) => {
       customer: customer,
       items: items,
       orderDate: orderDate,
-      needDate: needDate
+      needDate: needDate,
+      notes: notes
     });
 
     order

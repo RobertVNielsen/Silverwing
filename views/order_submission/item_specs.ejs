@@ -39,31 +39,45 @@
           </a>
         </button>
         <!-- <form class="submission" action="/order_submission/submit_order" method="POST"> -->
-          <h1>
+          <h4>
             Choose features and price
-          </h1>
-          <h5>
+          </h4>
+          <h4>
             <br />
-            <div id="modelName">ph</div>
+            <div id="modelName"></div>
+            <br />
+            <label id="priceTable"></label>
             <br />
             Base Price: $<span id="price_B">PRICE</span>
             <button id="edit_price_button_B" type="button" class="editPrice" onclick="editablePrice('B')"><img src="../images/browser.png" width="16px" height="auto" /></button>
             <button id="default_price_button_B" type="button" class="editPrice" hidden>Default price</button>
-          </h5>
-
-          <br />
+          </h4>
 
 
+          <table class="itemsTable">
+            <% for (var i = 0; i < features.length; i++) { %>
+              <tr>
 
-          <% for (var i = 0; i < features.length; i++) { %>
-             <label>
-               <input type="checkbox" name="features" value="<%= features[i].name %>" onclick="calcPrice()">
-               <%= features[i].name %>  ($<span id="price_<%= i %>"><%= features[i].prices[defaultPriceTable] %></span>)
-               <button id="edit_price_button_<%= i %>" type="button" class="editPrice" onclick="editablePrice(<%= i %>)"><img src="../images/browser.png" width="16px" height="auto" /></button>
-               <button id="default_price_button_<%= i %>" type="button" class="editPrice" onclick="defaultPrice(<%= i %>)" hidden>Default price</button>
-             </label><br>
-           <% } %>
+               <td class="featureRow">
+                 <%= features[i].name %>
+               </td>
+               <td class="featureRow">
+                 $<span id="price_<%= i %>"><%= features[i].prices[defaultPriceTable] %></span>
+                 <button id="edit_price_button_<%= i %>" type="button" class="editPrice" onclick="editablePrice(<%= i %>)"><img src="../images/browser.png" width="16px" height="auto" /></button>
+                 <button id="default_price_button_<%= i %>" type="button" class="editPrice" onclick="defaultPrice(<%= i %>)" hidden>Default price</button>
+               </td>
+               <td>
+                 <label class="switch">
+                   <input type="checkbox" name="features" value="<%= features[i].name %>" onclick="calcPrice()">
+                   <span class="slider round"></span>
 
+                 </label>
+               </td>
+             </tr>
+
+             <% } %>
+           </table>
+           <br />
 
           <!-- <input type="checkbox" id="vehicle2" name="vehicle2" value="Car" onclick="addToPrice(this, 15)">
           <label for="vehicle2"> Feature 2 ($15)</label><br>
@@ -76,7 +90,7 @@
           <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat" onclick="addToPrice(this, 60)">
           <label for="vehicle3"> Feature 6 ($60)</label><br> -->
 
-          <label class="priceLabel" id="price" for="price" >Price: $1299</label><br/>
+          <label class="priceLabel" id="price" for="price" >Price: $0</label><br/>
           <!-- <input type="radio" name="price" value="1400" onclick="hideCustomPrice()">$1400<br/>
           <input type="radio" name="price" value="1500" onclick="hideCustomPrice()">$1500<br/>
           <input type="radio" name="price" value="1650" onclick="hideCustomPrice()">$1650<br/>
