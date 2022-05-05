@@ -15,14 +15,83 @@
             document.getElementsByName('cpBreak').hidden = true;
           }
 
+          function displayPT(select) {
+            let index = select.selectedIndex;
+
+            let featureElements = document.getElementsByName("features");
+            // console.log('FEAT'+featureElements[0].value);
+            for (let i=-1; i<featureElements.length; i++) {
+              let priceElements;
+              if (i > -1) {
+                priceElements = document.getElementsByName('price_'+i);
+              } else {
+                priceElements = document.getElementsByName('price_B');
+              }
+              // let visible = null;
+
+              for (let p=0; p<priceElements.length; p++) {
+                if (priceElements[priceElements.length-1].hidden == false) {
+                  break;
+                } else {
+                  if (p == index) {
+                    priceElements[p].hidden = false;
+                  } else {
+                    priceElements[p].hidden = true;
+                  }
+                }
+
+              }
+            }
+            calcPrice();
+          }
+
+          function selectCustomer(select) {
+            let index = 0;
+            let pt = select.value.split('::::')[select.value.split('::::').length-1];
+
+            switch (pt) {
+              case 'A':
+                index += 0
+                break;
+              case 'B':
+                index += 1
+                break;
+              case 'C':
+                index += 2
+                break;
+              default:
+                index += 0
+            }
+
+            document.getElementById('defaultPT').innerHTML = pt;
+
+            document.getElementById('priceTableSelect').selectedIndex = index;
+            displayPT(document.getElementById('priceTableSelect'))
+          }
+
           function getPriceFromIndex(index) {
-            console.log("first "+parseInt(document.getElementById('price_'+index).innerHTML))
-            if (!isNaN(parseInt(document.getElementById('price_'+index).innerHTML))) {
-              console.log("outer"+document.getElementById('price_'+index).innerHTML)
-              return parseInt(document.getElementById('price_'+index).innerHTML);
+            let priceElements = document.getElementsByName('price_'+index);
+
+            let visible = null;
+
+            for (let i=0; i<priceElements.length; i++) {
+              if (!priceElements[i].hidden) {
+                visible = priceElements[i];
+                console.log("price el == " + priceElements[i].innerHTML);
+              }
+            }
+
+            // if (index == 'B') {
+            //   visible = document.getElementById('price_'+index);
+            // }
+
+            // console.log("first "+parseInt(document.getElementById('price_'+index).innerHTML))
+            if (!isNaN(parseInt(visible.innerHTML))) {
+              // console.log("outer"+document.getElementById('price_'+index).innerHTML)
+              return parseInt(visible.innerHTML);
             } else {
-              console.log("firstChild "+document.getElementById('price_'+index).firstChild.value)
-              return parseInt(document.getElementById('price_'+index).firstChild.value);
+              // console.log("firstChild "+document.getElementById('price_'+index).firstChild.value)
+              return parseInt(visible.firstChild.value);
             }
           }
 
@@ -47,19 +116,33 @@
             //   price -= val;
             // }
 
-            document.getElementById('price').innerHTML = "Price: $" + price;
+            document.getElementById('price').innerHTML = ' ' + ("$" + price).padStart(5);
+          }
+
+          function toggle(checkbox) {
+            calcPrice();
+            if (checkbox.checked) {
+              checkbox.parentElement.parentElement.parentElement.style.setProperty("text-decoration", "none");
+            } else {
+              checkbox.parentElement.parentElement.parentElement.style.setProperty("text-decoration", "line-through");
+            }
           }
 
           function showFirst() {
             document.getElementById('first').hidden = false;
             document.getElementById('second').hidden = true;
             document.getElementById('third').hidden = true;
+
+            clearThird();
+            window.scrollTo(0, 0);
           }
 
           function showSecond() {
             document.getElementById('first').hidden = true;
             document.getElementById('second').hidden = false;
             document.getElementById('third').hidden = true;
+
+            window.scrollTo(0, 0);
           }
 
           function showThird() {
@@ -70,6 +153,7 @@
             document.getElementById('third').hidden = false;
 
             calcPrice();
+            window.scrollTo(0, 0);
           }
 
           function clearThird() {
@@ -77,18 +161,66 @@
             // console.log('FEAT'+featureElements[0].value);
             for (let i=0; i<featureElements.length; i++) {
               featureElements[i].checked = false;
+              toggle(featureElements[i]);
+              defaultPrice(i);
             }
+            defaultPrice(-1);
 
             document.getElementById("quantity").value = null;
+
+            document.getElementById("updateIndex").innerHTML = "";
+
+
           }
 
           function selectModel(i) {
             let models = JSON.parse('<%-JSON.stringify(models)%>')
-            document.getElementById('modelName').innerHTML = models[i].name;
-            document.getElementById('priceTable').innerHTML = "Default prices from price table " + "ABCDEFGHIJKLMNOPQRSTUVWXYZ"[<%= defaultPriceTable %>];
 
-            document.getElementById('price_B').innerHTML = models[i].prices[<%= defaultPriceTable %>];
-            document.getElementById('default_price_button_B').setAttribute("onclick", "defaultPrice(" + (-(i+1)) + ")")
+            let priceElements = document.getElementsByName('price_B');
+
+            if (!isNaN(i)) {  // i is a number (normal)
+              console.log("Here... " + i)
+              console.log(isNaN(i))
+              console.log(isNaN(4))
+              console.log(isNaN("i"))
+              document.getElementById('modelName').innerHTML = models[i].name;
+              document.getElementById('default_price_button_B').setAttribute("onclick", "defaultPrice(" + (-(i+1)) + ")")
+              // document.getElementById('priceTable').innerHTML = "Default prices from price table " + "ABCDEFGHIJKLMNOPQRSTUVWXYZ"[<%= defaultPriceTable %>];
+
+
+
+              // let visible = null;
+
+              for (let p=0; p<priceElements.length-1; p++) {
+                priceElements[p].innerHTML = models[i].prices[p]
+              }
+
+            } else { // used if choosing from model name
+              console.log("i IS NOT A NUMBER")
+              let index = -1;
+              for (let j = 0; j < models.length; j++) {
+                if (models[j].name == i) {
+                  index = j
+                }
+              }
+
+              document.getElementById('modelName').innerHTML = i;
+
+              if (index == -1) { // if no model found
+                document.getElementById('price_B').innerHTML = '???';
+                document.getElementById('default_price_button_B').hidden = true;
+              } else { // if model found
+                document.getElementById('modelName').innerHTML = models[index].name;
+
+                for (let p=0; p<priceElements.length-1; p++) {
+                  priceElements[p].innerHTML = models[index].prices[p]
+                }
+                // document.getElementById('price_B').innerHTML = models[index].prices[<%= defaultPriceTable %>];
+                document.getElementById('default_price_button_B').setAttribute("onclick", "defaultPrice(" + (-(index+1)) + ")")
+              }
+            }
+
+
             showThird();
           }
 
@@ -102,37 +234,140 @@
           }
 
           function editablePrice(id) {
-            document.getElementById('price_' + id).innerHTML = '<input class="smallTextbox" type="number" value="0" />';
-            document.getElementById('price_' + id).firstChild.addEventListener("focusout", updatePrice);
+            // document.getElementById('price_' + id).innerHTML = '<input class="smallTextbox" type="number" value="0" />';
+            // document.getElementById('price_' + id).firstChild.addEventListener("focusout", updatePrice);
+
+            // let index = document.getElementById("priceTableSelect").selectedIndex;
+
+            let priceElements = document.getElementsByName('price_'+id);
+
+            // let visible = null;
+
+            for (let p=0; p<priceElements.length; p++) {
+              priceElements[p].hidden = true;
+              // if (p == index) {
+              //   priceElements[p].hidden = false;
+              // } else {
+              //   priceElements[p].hidden = true;
+              // }
+            }
+
             document.getElementById('edit_price_button_' + id).hidden = true;
             document.getElementById('default_price_button_' + id).hidden = false;
+            document.getElementById('priceCustom_' + id).hidden = false;
             // button.onclick = 'defaultPrice(' + id + ')';
+
+            calcPrice();
           }
 
           function defaultPrice(id) {
 
-            // let index = id;
+            // let index;
             if (id < 0) {
-              let models = JSON.parse('<%-JSON.stringify(models)%>')
-              document.getElementById('price_B').innerHTML = models[(-(id+1))].prices[<%= defaultPriceTable %>];
-              document.getElementById('edit_price_button_B').hidden = false;
-              document.getElementById('default_price_button_B').hidden = true;
+              id = "B";
+            }
+
+            // let index = id;
+            // if (id < 0) {
+            //   let models = JSON.parse('<%-JSON.stringify(models)%>')
+            //   for (let p=0; p<priceElements.length-1; p++) {
+            //     priceElements[p].innerHTML = models[(-(id+1))].prices[p];
+            //   }
+            //   document.getElementById('price_B').innerHTML = models[(-(id+1))].prices[<%= defaultPriceTable %>];
+            //   document.getElementById('edit_price_button_B').hidden = false;
+            //   document.getElementById('default_price_button_B').hidden = true;
               // document.getElementById('price_' + id).innerHTML = features[id].prices[<%= defaultPriceTable %>];
               // index = 0;
-            } else {
-              let features = JSON.parse('<%-JSON.stringify(features)%>')
-              console.log(features)
-              console.log(id)
-              document.getElementById('price_' + id).innerHTML = features[id].prices[<%= defaultPriceTable %>];
-              document.getElementById('edit_price_button_' + id).hidden = false;
-              document.getElementById('default_price_button_' + id).hidden = true;
+            // } else {
+              // let features = JSON.parse('<%-JSON.stringify(features)%>')
+              // console.log(features)
+              // console.log(id)
+              // document.getElementById('price_' + id).innerHTML = features[id].prices[<%= defaultPriceTable %>];
+            document.getElementById('edit_price_button_' + id).hidden = false;
+            document.getElementById('default_price_button_' + id).hidden = true;
+
+            let priceElements = document.getElementsByName('price_'+id);
+
+            // let visible = null;
+
+            for (let p=0; p<priceElements.length; p++) {
+              priceElements[p].hidden = true;
+              // if (p == index) {
+              //   priceElements[p].hidden = false;
+              // } else {
+              //   priceElements[p].hidden = true;
+              // }
             }
+            let index = document.getElementById('priceTableSelect').selectedIndex;
+            priceElements[index].hidden = false;
+
+            // }
 
             // button.onclick = 'editablePrice(' + id + ')';
             calcPrice();
           }
 
-          function addItemToHTML(model, costs, quantity) {
+          function populateEditItem(id) {
+            document.getElementById('updateIndex').innerHTML = id;
+
+            let model = document.getElementById('model' + id);
+            let price = document.getElementById('price' + id);
+            let quantity = document.getElementById('quantity' + id);
+
+            selectModel(model.value);
+
+            document.getElementById('quantity').value = quantity.value;
+
+            let priceArray = price.value.split(',');
+
+            let priceElements = document.getElementsByName('price_B');
+
+            if (getPriceFromIndex("B") != priceArray[1]) {
+              editablePrice("B");
+              document.getElementById("priceCustom_B").firstChild.value = priceArray[1];
+            }
+            // for (let p=0; p<priceElements.length; p++) {
+            //   if (priceElements[priceElements.length-1].hidden == false) {
+            //     break;
+            //   } else {
+            //     if (p == index) {
+            //       priceElements[p].hidden = false;
+            //     } else {
+            //       priceElements[p].hidden = true;
+            //     }
+            //   }
+            // }
+
+            // document.getElementById('price_B').innerHTML = priceArray[1];
+
+            let features = []
+            let costs = []
+
+            for (let i=0; i<priceArray.length; i+=2) {
+              if (i > 1) {
+                features.push(priceArray[i])
+                costs.push(priceArray[i+1])
+              }
+            }
+
+            populateFeatureList(features, costs);
+
+          }
+
+          function populateFeatureList(feats, costs) {
+            for (let i=0; i<feats.length; i++) {
+              let featureElements = document.getElementsByName("features");
+
+              for (let f=0; f<featureElements.length; f++) {
+                if (feats[i] == featureElements[f].value) {
+                  featureElements[f].checked = true;
+                  toggle(featureElements[f]);
+                }
+              }
+            }
+          }
+
+          function addItemToHTML(model, costs, quantity, id=-1) {
             let totalPrice = 0;
 
             console.log(costs)
@@ -143,32 +378,53 @@
               // }
             }
 
-            let randomID = Math.random();
+            if (id == -1) {
+              let randomID = Math.random();
 
-            let tempStr = '<tr id="row' + randomID + '" onclick="">';
-            tempStr += '<td>' + model + '</td>';
-            tempStr += '<td>' + totalPrice + '</td>';
-            tempStr += '<td>' + quantity + '</td>';
-            tempStr += '<td class="icon"><button type="button" class="delete" onclick="remove('+randomID+')"><img src="../images/bin.png" width="18px" height="auto" /></button></td></tr>';
+              let tempStr = '<tr id="row' + randomID + '" name="rowitem" onclick="populateEditItem(' + randomID + ')">';
+              tempStr += '<td>' + model + '</td>';
+              tempStr += '<td>' + totalPrice + '</td>';
+              tempStr += '<td>' + quantity + '</td>';
+              tempStr += '<td class="icon"><button type="button" class="delete" onclick="remove('+randomID+')"><img src="../images/bin.png" width="18px" height="auto" /></button></td></tr>';
 
-            document.getElementById('itemsTable').innerHTML += tempStr;
+              document.getElementById('itemsTable').innerHTML += tempStr;
 
-            // document.getElementById('itemsTable').innerHTML += '<tr onclick="" class="light">'+
-            //     '<td>SW12S</td><td>1299</td><td>6</td>'+
-            //     '<td class="icon"><img src="../images/bin.png" width="18px" height="auto" /></td></tr>';
+              // document.getElementById('itemsTable').innerHTML += '<tr onclick="" class="light">'+
+              //     '<td>SW12S</td><td>1299</td><td>6</td>'+
+              //     '<td class="icon"><img src="../images/bin.png" width="18px" height="auto" /></td></tr>';
 
-            tempStr = '<input id="model' + randomID + '" type="hidden" name="models" value="' + model + '" />';
+              tempStr = '<input id="model' + randomID + '" type="hidden" name="models" value="' + model + '" />';
 
 
-            tempStr += '<input id="price' + randomID + '" type="hidden" name="prices" value="' + costs + '" />';
-            tempStr += '<input id="quantity' + randomID + '" type="hidden" name="quantities" value="' + quantity + '" />';
+              tempStr += '<input id="price' + randomID + '" type="hidden" name="prices" value="' + costs + '" />';
+              tempStr += '<input id="quantity' + randomID + '" type="hidden" name="quantities" value="' + quantity + '" />';
 
-            // tempStr += '<input type="hidden" name="models" value=&#39;{model: "df", price "4567"}&#39; ';
+              // tempStr += '<input type="hidden" name="models" value=&#39;{model: "df", price "4567"}&#39; ';
 
-            document.getElementById('inputs').innerHTML += tempStr;
+              document.getElementById('inputs').innerHTML += tempStr;
+            } else {
+              let tempStr = "";
+              tempStr += '<td>' + model + '</td>';
+              tempStr += '<td>' + totalPrice + '</td>';
+              tempStr += '<td>' + quantity + '</td>';
+              tempStr += '<td class="icon"><button type="button" class="delete" onclick="remove('+id+')"><img src="../images/bin.png" width="18px" height="auto" /></button></td>';
+              document.getElementById("row"+id).innerHTML = tempStr;
 
+              document.getElementById("model"+id).value = model;
+              document.getElementById("price"+id).value = costs;
+              document.getElementById("quantity"+id).value = quantity;
+            }
 
             document.getElementById('noItems').innerHTML = '';
+            let rows = document.getElementsByName("rowitem");
+            for (let i=0; i<rows.length; i++) {
+              if (i % 2 == 0) {
+                console.log(rows[i].innerHTML)
+                rows[i].className="light";
+              } else {
+                rows[i].className="dark";
+              }
+            }
           }
 
           function addItemToOrder() {
@@ -191,8 +447,11 @@
                 // }
               }
             }
-
-            addItemToHTML(model, costs, quantity);
+            if (document.getElementById("updateIndex").innerHTML != "") {
+              addItemToHTML(model, costs, quantity, document.getElementById("updateIndex").innerHTML);
+            } else {
+              addItemToHTML(model, costs, quantity);
+            }
 
             showFirst();
             clearThird();
@@ -234,11 +493,24 @@
             customers = JSON.parse(temp);
             for (let i = 0; i < customers.length; i++) {
               console.log(i + " " + customers[i] + " " + customers[i].title)
-              document.getElementById('customerOptions').innerHTML += '<option value="' + customers[i].title + '">' + customers[i].title + '</option>'
+              document.getElementById('customerOptions').innerHTML += '<option value="' + customers[i].title + '::::' + customers[i].priceTable + '">' + customers[i].title + '</option>'
             }
           }
 
           function populate(editee) {
+            let temp = '<%-JSON.stringify(customers).replace("'", "&apos;")%>';
+            customers = JSON.parse(temp);
+            console.log(customers)
+            let index = 0;
+            for (let i = 0; i < customers.length; i++) {
+              console.log(editee.customer.split("::::")[0])
+              console.log(customers[i].title)
+              if (editee.customer.split("::::")[0] == customers[i].title) {
+                index = i;
+              }
+            }
+            document.getElementById("customerOptions").selectedIndex = index;
+
             for (let i = 0; i < editee.items.length; i++) {
               let costs = [];
               for (let k = 0; k < editee.items[i].costs.length; k++) {
@@ -264,6 +536,7 @@
             } else {
               idCreation();
               setToTodaysDate();
+              // showSecond();
               // selectModel(0);
             }
 
@@ -289,7 +562,7 @@
 
 
                 <label for="customer" >Customer</label>
-                <select id="customerOptions" name="customer">
+                <select id="customerOptions" name="customer" onchange="selectCustomer(this)">
                   <option value="">-- Select a customer --</option>
 
                 </select><br/><br/>

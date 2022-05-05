@@ -35,11 +35,11 @@
         <% include ../includes/nav.ejs %> -->
         <button class="modelButton" type="button" onclick="showSecond()">
           <a>
-            Back
+            Change model
           </a>
         </button>
         <!-- <form class="submission" action="/order_submission/submit_order" method="POST"> -->
-          <h4>
+          <!-- <h4>
             Choose features and price
           </h4>
           <h4>
@@ -47,36 +47,98 @@
             <div id="modelName"></div>
             <br />
             <label id="priceTable"></label>
-            <br />
-            Base Price: $<span id="price_B">PRICE</span>
+            <br />-->
+            <!-- Base Price: $<span id="price_B">PRICE</span>
             <button id="edit_price_button_B" type="button" class="editPrice" onclick="editablePrice('B')"><img src="../images/browser.png" width="16px" height="auto" /></button>
-            <button id="default_price_button_B" type="button" class="editPrice" hidden>Default price</button>
-          </h4>
-
-
+            <button id="default_price_button_B" type="button" class="editPrice" hidden>Default price</button> -->
+          <!-- </h4>  -->
+          <span class="float_right">
+            <label>Price table: </label>
+            <select id="priceTableSelect" class="selectPT" name="" onchange="displayPT(this)">
+              <option selected>A</option>
+              <option>B</option>
+              <option>C</option>
+            </select>
+            <br />
+            Price table <span id="defaultPT">A</span> is the default for this customer
+          </span>
+          <hr />
           <table class="itemsTable">
+            <tr class="lightf">
+              <td class="featureRow">
+                Base Price (<span id="modelName">MODEL</span>)
+              </td>
+              <td class="moneyTD">
+                $
+                <span name="price_B" id="priceA_B">0</span>
+                <span name="price_B" id="priceB_B" hidden>0</span>
+                <span name="price_B" id="priceC_B" hidden>0</span>
+                <span name="price_B" id="priceCustom_B" hidden><input class="smallTextbox" type="number" value="0" onfocusout="calcPrice()" /></span>
+              </td>
+              <td>
+               <button id="edit_price_button_B" type="button" class="editPrice" onclick="editablePrice('B')"><img src="../images/browser.png" width="16px" height="auto" /></button>
+               <button id="default_price_button_B" type="button" class="editPrice" hidden>Default price</button>
+              </td>
+              <td class="toggler invisible">
+                 <label class="switch">
+                   <input type="checkbox" checked disabled="disabled" >
+                   <span class="slider round"></span>
+                 </label>
+               </td>
+            </tr>
             <% for (var i = 0; i < features.length; i++) { %>
-              <tr>
+
+              <tr style="text-decoration: line-through">
 
                <td class="featureRow">
                  <%= features[i].name %>
                </td>
-               <td class="featureRow">
-                 $<span id="price_<%= i %>"><%= features[i].prices[defaultPriceTable] %></span>
+               <td class="moneyTD">
+                 $
+                 <span name="price_<%= i %>" id="priceA_<%= i %>"><%= features[i].prices[0] %></span>
+                 <span name="price_<%= i %>" id="priceB_<%= i %>" hidden><%= features[i].prices[1] %></span>
+                 <span name="price_<%= i %>" id="priceC_<%= i %>" hidden><%= features[i].prices[2] %></span>
+                 <span name="price_<%= i %>" id="priceCustom_<%= i %>" hidden><input class="smallTextbox" type="number" value="0" onfocusout="calcPrice()" /></span>
+              </td>
+              <td class="editButtonTD">
                  <button id="edit_price_button_<%= i %>" type="button" class="editPrice" onclick="editablePrice(<%= i %>)"><img src="../images/browser.png" width="16px" height="auto" /></button>
                  <button id="default_price_button_<%= i %>" type="button" class="editPrice" onclick="defaultPrice(<%= i %>)" hidden>Default price</button>
+              </td>
+              <td class="toggler">
+                 <label class="switch">
+                   <input type="checkbox" name="features" value="<%= features[i].name %>" onclick="toggle(this)">
+                   <span class="slider round"></span>
+
+                 </label>
                </td>
-               <td>
+               <!-- <td>
                  <label class="switch">
                    <input type="checkbox" name="features" value="<%= features[i].name %>" onclick="calcPrice()">
                    <span class="slider round"></span>
 
                  </label>
-               </td>
+               </td> -->
              </tr>
 
              <% } %>
+             <tr>
+               <td class="featureRow">
+                 <strong>Total</strong>
+               </td>
+               <td class="moneyTD  totalTD">
+                 <strong><span id="price">$0</span></strong>
+               </td>
+               <td></td>
+               <td class="toggler invisible">
+                  <label class="switch">
+                    <input type="checkbox" checked disabled="disabled" >
+                    <span class="slider round"></span>
+                  </label>
+                </td>
+             </tr>
+
            </table>
+           <hr />
            <br />
 
           <!-- <input type="checkbox" id="vehicle2" name="vehicle2" value="Car" onclick="addToPrice(this, 15)">
@@ -90,7 +152,7 @@
           <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat" onclick="addToPrice(this, 60)">
           <label for="vehicle3"> Feature 6 ($60)</label><br> -->
 
-          <label class="priceLabel" id="price" for="price" >Price: $0</label><br/>
+          <!-- <label class="priceLabel" id="price" for="price" >Price: $0</label><br/> -->
           <!-- <input type="radio" name="price" value="1400" onclick="hideCustomPrice()">$1400<br/>
           <input type="radio" name="price" value="1500" onclick="hideCustomPrice()">$1500<br/>
           <input type="radio" name="price" value="1650" onclick="hideCustomPrice()">$1650<br/>
@@ -103,6 +165,7 @@
 
           <label for="quantity">Quantity</label><br/>
           <input type="number" id="quantity" name="quantity"><br/><br/>
+          <span id="updateIndex" hidden></span>
           <button type="button" onclick="addItemToOrder()">Add item to order</button>
         <!-- </form> -->
         <!-- <% include ../includes/footer.ejs %>

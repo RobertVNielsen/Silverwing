@@ -36,7 +36,7 @@
                     <td><%= customers[i].phone %></td>
                     <td><%= customers[i].email %></td>
                     <td>
-                      <form action="/customers/delete_customer" method="POST">
+                      <form action="/customers/delete_customer" method="POST" onsubmit="return confirm('Are you sure want to delete this customer?')">
                         <input type="hidden" name="id" value="<%= customers[i]._id %>">
                         <button type="submit" class="delete">
                           <img src="../images/bin.png" width="18px" height="auto" />

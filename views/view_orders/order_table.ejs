@@ -67,9 +67,9 @@
                 let rowStr = '';
 
                 if (count % 2 == 0) {
-                  rowStr += '<tr onclick="window.location = \'/view_orders/single_order/' + orders[i]._id + '\'" class="light">';
+                  rowStr += '<tr class="light">';
                 } else {
-                  rowStr += '<tr onclick="window.location = \'/view_orders/single_order/' + orders[i]._id + '\'" class="dark">';
+                  rowStr += '<tr class="dark">';
                 }
 
                 orderDate = orders[i].orderDate.split('-');
@@ -92,15 +92,15 @@
 
                 let link = '<span onclick="window.location = \'/view_orders/single_order/' + orders[i]._id + '\'">';
 
-                rowStr += link + '<td>' + orders[i].id + '</td>' + '</span>';
-                rowStr += link + '<td>' + orders[i].customer + '</td>' + '</span>';
-                rowStr += link + '<td>' + (new Date(orderDate[0], orderDate[1]-1, orderDate[2])).toLocaleDateString() + '</td>' + '</span>';
-                rowStr += link + '<td>' + (new Date(needDate[0], needDate[1]-1, needDate[2])).toLocaleDateString() + '</td>' + '</span>';
-                rowStr += link + '<td>' + quantity + '</td>' + '</span>';
-                rowStr += link + '<td>' + (new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' })).format(totalPrice) + '</td>' + '</span>';
+                rowStr += link + '<td onclick="window.location = \'/view_orders/single_order/' + orders[i]._id + '\'">' + orders[i].id + '</td>' + '</span>';
+                rowStr += link + '<td onclick="window.location = \'/view_orders/single_order/' + orders[i]._id + '\'">' + orders[i].customer.split("::::")[0] + '</td>' + '</span>';
+                rowStr += link + '<td onclick="window.location = \'/view_orders/single_order/' + orders[i]._id + '\'">' + (new Date(orderDate[0], orderDate[1]-1, orderDate[2])).toLocaleDateString() + '</td>' + '</span>';
+                rowStr += link + '<td onclick="window.location = \'/view_orders/single_order/' + orders[i]._id + '\'">' + (new Date(needDate[0], needDate[1]-1, needDate[2])).toLocaleDateString() + '</td>' + '</span>';
+                rowStr += link + '<td onclick="window.location = \'/view_orders/single_order/' + orders[i]._id + '\'">' + quantity + '</td>' + '</span>';
+                rowStr += link + '<td onclick="window.location = \'/view_orders/single_order/' + orders[i]._id + '\'">' + (new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' })).format(totalPrice) + '</td>' + '</span>';
                 rowStr += '<td><form action="/order_submission/copy_order' +'" method="POST" >'+
                           '<input type="hidden" name="orderID" value="' + orders[i].id + '">' + '<button type="submit" class="delete"><img src="../images/copy.png" width="18px" height="auto" /></button></form>' +
-                          '<form action="/view_orders/delete_order' +'" method="POST">'+
+                          '<form action="/view_orders/delete_order' +'" method="POST" onsubmit="return confirm(\'Are you sure want to delete this order?\');">'+
                           '<input type="hidden" name="orderID" value="' + orders[i].id + '">' + '<button type="submit" class="delete"><img src="../images/bin.png" width="18px" height="auto" /></button></form></td>';
                 // if (orders[i].id[orders[i].id.length-1] == '0')
                 //   {rowStr += '<button type="submit" class="delete"><img src="../images/warning.png" width="18px" height="auto" /></button></form></td>';}
@@ -210,7 +210,7 @@
               <input id="startDate" class="filters" type="date"> and
               <input id="endDate" class="filters" type="date">
               <button class="filters" type="button" onclick="createOrderTable('')">Update Table</button>
-              <button class="newOrder" type="submit">Submit Order</button>
+              <button class="newOrder" type="submit" hidden>Submit Order</button>
         </form>
 
 

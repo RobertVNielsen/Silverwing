@@ -7,6 +7,7 @@ const controller = require("../controllers/order_submission_controller");
 // router.get("/item_specs/:model", controller.itemSpecsPage);
 router.get("/add_order", auth, controller.addOrderPage);
 router.post("/copy_order", auth, controller.copyOrderPage);
+router.post("/edit_order", auth, controller.editOrderPage);
 
 router.post("/submit_order", auth, controller.postSubmitOrder)
 

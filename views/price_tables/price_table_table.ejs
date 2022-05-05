@@ -36,7 +36,7 @@
                       <td>$<%= models[i].prices[iPrice] %>.00</td>
                     <% } %>
                     <td>
-                      <form action="/price_tables/delete_product" method="POST">
+                      <form action="/price_tables/delete_product" method="POST"  onsubmit="return confirm('Are you sure want to delete this model?')">
                         <input type="hidden" name="id" value="<%= models[i]._id %>">
                         <button type="submit" class="delete">
                           <img src="../images/bin.png" width="18px" height="auto" />
@@ -69,7 +69,7 @@
                       <td>$<%= features[i].prices[iPrice] %>.00</td>
                     <% } %>
                     <td>
-                      <form action="/price_tables/delete_product" method="POST">
+                      <form action="/price_tables/delete_product" method="POST"  onsubmit="return confirm('Are you sure want to delete this feature?')">
                         <input type="hidden" name="id" value="<%= features[i]._id %>">
                         <button type="submit" class="delete">
                           <img src="../images/bin.png" width="18px" height="auto" />

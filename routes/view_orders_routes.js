@@ -4,7 +4,7 @@ const auth = require("../middleware/auth");
 const controller = require("../controllers/view_orders_controller");
 
 router.get("/single_order/:id", auth, controller.singleOrderPage)
-router.get("/single_order_pdf/:id", auth, controller.hiddenPDFPage)
+router.get("/single_order_pdf/:id", controller.hiddenPDFPage)
 router.get("/order_table", auth, controller.orderTablePage)
 router.get("/order_table_pdf", auth, controller.orderTablePage)
 

@@ -24,6 +24,7 @@ exports.addOrderPage = (req, res, next) => {
                               features: features,
                               customers: customers,
                               editee: null,
+                              isExists: false,
                               defaultPriceTable: 0,
                               secondLayer: false
                         });
@@ -61,6 +62,45 @@ exports.copyOrderPage = (req, res, next) => {
                               features: features,
                               customers: customers,
                               editee: editee,
+                              isExists: false,
+                              defaultPriceTable: 0,
+                              secondLayer: false
+                        });
+                    });
+                });
+            });
+      });
+}
+
+exports.editOrderPage = (req, res, next) => {
+  const id = req.body.orderID;
+  Order
+      .find()
+      .then(orders => {
+        Model
+            .find({category: 'model'})
+            .then(models => {
+              Model
+                  .find({category: 'feature'})
+                  .then(features => {
+                    Customer
+                        .find()
+                        .then(customers => {
+                          console.log(customers)
+                          let editee = null;
+                          for (let i = 0; i < orders.length; i++) {
+                            if (orders[i].id == id) {
+                              editee = orders[i];
+                            }
+                          }
+                          res.render('order_submission/add_order', {
+                              title: 'Add Order',
+                              orders: orders,
+                              models: models,
+                              features: features,
+                              customers: customers,
+                              editee: editee,
+                              isExists: true,
                               defaultPriceTable: 0,
                               secondLayer: false
                         });
