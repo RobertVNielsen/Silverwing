@@ -8,7 +8,7 @@
       <div class="main-div">
         <% include ../includes/nav.ejs %>
 
-
+        <br />
         <table class="ordersTable">
 
             <caption>
@@ -30,10 +30,10 @@
               <% } else { %>
                 <tr class="dark">
               <% } %>
-                    <td><%= models[i].name %></td>
+                    <td onclick="window.location = '/price_tables/edit_price_table/<%= models[i]._id %>'"><%= models[i].name %></td>
                     <% console.log(models[i].name) %>
                     <% for (var iPrice = 0; iPrice < models[i].prices.length || 0; iPrice++) { %>
-                      <td>$<%= models[i].prices[iPrice] %>.00</td>
+                      <td onclick="window.location = '/price_tables/edit_price_table/<%= models[i]._id %>'">$<%= models[i].prices[iPrice] %>.00</td>
                     <% } %>
                     <td>
                       <form action="/price_tables/delete_product" method="POST"  onsubmit="return confirm('Are you sure want to delete this model?')">
@@ -64,9 +64,9 @@
               <% } else { %>
                 <tr class="dark">
               <% } %>
-                    <td><%= features[i].name %></td>
+                    <td onclick="window.location = '/price_tables/edit_price_table/<%= features[i]._id %>'"><%= features[i].name %></td>
                     <% for (var iPrice = 0; iPrice < features[i].prices.length; iPrice++) { %>
-                      <td>$<%= features[i].prices[iPrice] %>.00</td>
+                      <td onclick="window.location = '/price_tables/edit_price_table/<%= features[i]._id %>'">$<%= features[i].prices[iPrice] %>.00</td>
                     <% } %>
                     <td>
                       <form action="/price_tables/delete_product" method="POST"  onsubmit="return confirm('Are you sure want to delete this feature?')">

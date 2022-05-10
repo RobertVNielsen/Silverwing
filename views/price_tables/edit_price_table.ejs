@@ -2,13 +2,51 @@
 <html>
     <head>
         <% include ../includes/header.ejs %>
+
+        <script>
+          function populate() {
+            document.getElementById("id").value = "<%= priceTable._id %>";
+            document.getElementById("name").value = "<%= priceTable.name %>";
+            document.getElementById("category").value = "<%= priceTable.category %>";
+            document.getElementById("a").value = "<%= priceTable.prices[0] %>";
+            document.getElementById("b").value = "<%= priceTable.prices[1] %>";
+            document.getElementById("c").value = "<%= priceTable.prices[2] %>";
+          }
+        </script>
     </head>
 
-    <body>
+    <body onload="populate()">
       <div class="main-div">
         <% include ../includes/nav.ejs %>
 
-        <%= title %>
+        <div>
+          <form class="submission" action="/price_tables/update_price_table" method="POST">
+            <label for="name">Product name</label>
+            <input name="name" id="name" type="text" />
+            <br />
+
+            <select name="category" id="category">
+              <option value="">-- Select a product type --</option>
+              <option value="model">Model</option>
+              <option value="feature">Feature</option>
+            </select><br/><br/>
+
+            <label for="A">Price A</label>
+            <input name="A" id="a" type="number" />
+            <br />
+
+            <label for="B">Price B</label>
+            <input name="B" id="b" type="number" />
+            <br />
+
+            <label for="C">Price C</label>
+            <input name="C" id="c" type="number" />
+            <br />
+
+            <input name="id" id="id" type="hidden" />
+            <button class="wide" type="submit">Update Product!</button>
+          </form>
+        </div>
 
         <% include ../includes/footer.ejs %>
       </div>

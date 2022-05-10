@@ -195,27 +195,54 @@ exports.postSubmitOrder = (req, res, next) => {
       // items[i].price = prices[i];
     }
 
-    console.log(items);
-    // let
-
-    const order = new Order({
-      id: id,
-      customer: customer,
-      items: items,
-      orderDate: orderDate,
-      needDate: needDate,
-      notes: notes
-    });
-
-    order
-        .save()
+    Order
+        .findOne({id: id})
         .then(result => {
-            console.log("Created Order");
-            console.log(result);
+          if (result) {
+            result.customer = customer;
+            result.items = items;
+            result.orderDate = orderDate;
+            result.needDate = needDate;
+            result.notes = notes;
 
-            res.redirect('/view_orders/order_table');
+            result
+                .save()
+                .then(result => {
+                    console.log("Updated Order " + id);
+                    console.log(result);
+
+                    res.redirect('/view_orders/order_table');
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+          } else {
+            const order = new Order({
+              id: id,
+              customer: customer,
+              items: items,
+              orderDate: orderDate,
+              needDate: needDate,
+              notes: notes
+            });
+
+            order
+                .save()
+                .then(result => {
+                    console.log("Created Order");
+                    console.log(result);
+
+                    res.redirect('/view_orders/order_table');
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+          }
         })
-        .catch(err => {
-            console.log(err);
-        })
+
+
+
+
+
+
 }

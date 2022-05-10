@@ -21,6 +21,8 @@
                 <!-- <th></th> -->
                 <th>Name</th>
                 <th>Price table</th>
+                <th>Address</th>
+                <th>Representative</th>
                 <th>Phone number</th>
                 <th>Email</th>
                 <th></th>
@@ -31,10 +33,12 @@
               <% } else { %>
                 <tr class="dark">
               <% } %>
-                    <td><%= customers[i].title %></td>
-                    <td><%= customers[i].priceTable %></td>
-                    <td><%= customers[i].phone %></td>
-                    <td><%= customers[i].email %></td>
+                    <td onclick="window.location = '/customers/edit_customer/<%= customers[i]._id %>'"><%= customers[i].title %></td>
+                    <td onclick="window.location = '/customers/edit_customer/<%= customers[i]._id %>'"><%= customers[i].priceTable %></td>
+                    <td onclick="window.location = '/customers/edit_customer/<%= customers[i]._id %>'"><%= customers[i].address %></td>
+                    <td onclick="window.location = '/customers/edit_customer/<%= customers[i]._id %>'"><%= customers[i].representative %></td>
+                    <td onclick="window.location = '/customers/edit_customer/<%= customers[i]._id %>'"><%= customers[i].phone %></td>
+                    <td onclick="window.location = '/customers/edit_customer/<%= customers[i]._id %>'"><%= customers[i].email %></td>
                     <td>
                       <form action="/customers/delete_customer" method="POST" onsubmit="return confirm('Are you sure want to delete this customer?')">
                         <input type="hidden" name="id" value="<%= customers[i]._id %>">

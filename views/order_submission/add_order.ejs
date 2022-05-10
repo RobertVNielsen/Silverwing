@@ -170,7 +170,7 @@
 
             document.getElementById("updateIndex").innerHTML = "";
 
-
+            // document.getElementById('id').innerHTML = '';
           }
 
           function selectModel(i) {
@@ -500,7 +500,7 @@
           function populate(editee) {
             let temp = '<%-JSON.stringify(customers).replace("'", "&apos;")%>';
             customers = JSON.parse(temp);
-            console.log(customers)
+            console.log("here " + customers)
             let index = 0;
             for (let i = 0; i < customers.length; i++) {
               console.log(editee.customer.split("::::")[0])
@@ -509,7 +509,7 @@
                 index = i;
               }
             }
-            document.getElementById("customerOptions").selectedIndex = index;
+            document.getElementById("customerOptions").selectedIndex = index + 1;
 
             for (let i = 0; i < editee.items.length; i++) {
               let costs = [];
@@ -521,18 +521,30 @@
             }
           }
 
-          function changeToEdit() {
-
+          function changeToEdit(editee) {
+            document.getElementById('id').innerHTML = '<input type="hidden" name="id" value="' +
+                                                       editee.id + '">';
+            // document.getElementById('customerOptions').value = editee.customer;
+            document.getElementById('orderDate').value = editee.orderDate;
+            document.getElementById('needDate').value = editee.needDate;
+            document.getElementById('notes').innerHTML = editee.notes;
           }
 
           function loadForm() {
+            loadCustomerOptions();
+            console.log("hello")
             let temp = '<%-JSON.stringify(editee).replace("'", "&apos;")%>';
             let editee = JSON.parse(temp);
             if (editee) {
               populate(editee);
-              changeToEdit();
-              idCreation();
               setToTodaysDate();
+
+              if (<%= isExists %>) {
+                changeToEdit(editee);
+              } else {
+                idCreation();
+              }
+
             } else {
               idCreation();
               setToTodaysDate();
@@ -540,7 +552,7 @@
               // selectModel(0);
             }
 
-            loadCustomerOptions();
+
           }
 
         </script>
@@ -597,7 +609,7 @@
                 <hr />
 
                 <label for="notes">Notes</label><br/>
-                <textarea name="notes"></textarea><br/><br/>
+                <textarea id="notes" name="notes"></textarea><br/><br/>
 
                 <button class="wide" type="submit">Submit Order!</button>
             </form>

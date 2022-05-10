@@ -9,7 +9,7 @@
 
 tr:hover, th {
   /* border: solid; */
-  background-color:  inherit; /* #dccca3ff /* --dutch-white */;
+  background-color:  inherit; /* #dccca3ff /* --dutch-white */
 }
 
 tr:hover {
@@ -83,7 +83,15 @@ table.itemsTable td.icon {
 }
 
 td.singleOrderTableModel {
-  width: 10%;
+  /* width: 80%; */
+}
+
+.pdf {
+  font-family: Roboto Condensed;
+}
+
+li {
+  margin: 0;
 }
 
 table.models {

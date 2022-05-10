@@ -11,6 +11,14 @@ const customerSchema = new Schema({
         type: String,
         required: false
     },
+    address: {
+        type: String,
+        required: false
+    },
+    representative: {
+        type: String,
+        required: false
+    },
     phone: {
         type: String,
         required: false

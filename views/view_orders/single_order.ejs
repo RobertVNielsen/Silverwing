@@ -18,7 +18,19 @@
             };
 
             // New Promise-based usage:
-            html2pdf().set(opt).from(element).save();
+            html2pdf()
+                .set(opt)
+                .then(result => {
+                  // document.getElementById("singleOrderTable").hidden = true;
+                })
+                .from(element)
+                .save()
+                .then(result => {
+                  // document.getElementById("singleOrderTable").hidden = false;
+                })
+                .catch(err => {
+                    console.log(err);
+                });
 
           }
 
@@ -28,36 +40,38 @@
 
             moneyFormat = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' })
 
-            tempStr += 'ORDER ID: ' + order.id + '<br />';
-            tempStr += 'ORDER DATE: ' + order.orderDate + '<br />';
-            tempStr += '<span id="pdf">';
+            // tempStr += 'ORDER ID: ' + order.id + '<br />';
+            // tempStr += 'ORDER DATE: ' + order.orderDate + '<br />';
+            tempStr += '<span class="pdf" id="pdf">';
             tempStr += 'CUSTOMER: ' + order.customer.split("::::")[0] + '<br />';
             tempStr += 'NEED DATE: ' + order.needDate + '';
 
             tempStr += '<table id="singleOrderTable" class="singleOrderTable">';
-            tempStr += tableHead();
+            // tempStr += tableHead();
 
             for (let iItem = 0; iItem < order.items.length; iItem++) {
               let item = order.items[iItem];
               if (iItem % 2 == 0) {
-                tempStr += '<tr class = "light">';
+                tempStr += '<tr>'; // '<tr class = "light">';
               } else {
-                tempStr += '<tr class = "dark">';
+                tempStr +=  '<tr>'; // '<tr class = "dark">';
               }
-              tempStr += '<td class="singleOrderTableModel">' + item.model + '</td>';
-              tempStr += '<td>';
+              tempStr += '<td class="singleOrderTableModel">' + item.model + '  (quantity: ' + item.quantity + ')<br />';// + '</td>';
+              tempStr += '<ul>';
               for (let iCost = 1; iCost < order.items[iItem].costs.length; iCost++) {
                 let cost = order.items[iItem].costs[iCost];
-                tempStr += ' - ' + cost.feature;
-                tempStr += '<br />';
+                tempStr += '<li>' + cost.feature + '</li>';
+                // tempStr += '<br />';
               }
-              tempStr += '</td>';
+              tempStr += '<ul></td>';
 
-              tempStr += '<td class="minHeight">' + item.quantity + '<br />';
+              // tempStr += '<td class="minHeight">' + item.quantity + '<br />';
               // tempStr += '<br />';
             }
             tempStr += '</tbody></table><br /><br />';
-            tempStr += 'Notes: <br />' + order.notes + '<br /><br />';
+            if (order.notes != "") {
+              tempStr += 'Notes: <br />' + order.notes + '<br /><br />';
+            }
             tempStr += '</span>';
             if (getQueryVariable('pdf')) {
               // document.getElementById('nav').hidden = true;
@@ -67,7 +81,7 @@
               document.getElementById('download').hidden = true;
               // document.getElementById('footer').hidden = true;
             } else {
-              tempStr += '<button type="button" onclick="downloadBuild()">Download Build List</button>';
+              tempStr += '<br /><br /><button type="button" onclick="downloadBuild()">Download Build List</button>';
               tempStr += '<a id="download" href="../../build_list_' + order.id + '.pdf" Download hidden><a>';
             }
 

@@ -99,8 +99,43 @@ exports.postDeletePriceTable = (req, res, next) => {
 }
 
 exports.editPriceTablePage = (req, res, next) => {
-    res.render('price_tables/edit_price_table', {
-        title: 'Edit Price Table',
-        secondLayer: false
-    });
+  const priceTableID = req.params.id;
+  Model
+    .findById(priceTableID)
+    .then(priceTable => {
+      res.render('price_tables/edit_price_table', {
+          title: 'Edit Price Table',
+          secondLayer: false,
+          priceTable: priceTable
+      });
+    })
+    .catch(err => {
+      console.log(err);
+    })
+
+
+}
+
+exports.postUpdatePriceTable = (req, res, next) => {
+  const priceTableID = req.body.id;
+  const name = req.body.name;
+  const category = req.body.category;
+  const a = req.body.A;
+  const b = req.body.B;
+  const c = req.body.C;
+
+  Model
+      .findOne({'_id': priceTableID})
+      .then(priceTable => {
+        priceTable.name = name;
+        priceTable.category = category;
+        priceTable.prices = [a, b, c];
+        return priceTable.save()
+      })
+      .then(result => {
+        res.redirect('/price_tables/price_table_table');
+      })
+      .catch(err => {
+          console.log(err);
+      })
 }
