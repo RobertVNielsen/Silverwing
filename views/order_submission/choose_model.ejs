@@ -18,7 +18,7 @@
         </button>
         <table class='models'>
           <caption>
-            Choose a model
+            Models
           </caption>
           <% for (var i = 0; i < models.length; i += 3) { %>
             <tr>
@@ -55,6 +55,52 @@
                       <img width="200" height="200" src="https://i1.wp.com/silverwingtrailers.com/wp-content/uploads/2018/09/trailer.jpg?resize=300%2C300&amp;ssl=1">
                       <br />
                       <%= model.name %>
+                    </a>
+                  </button>
+                </td>
+              <% } %>
+            </tr>
+          <% } %>
+        </table>
+        <table class='models'>
+          <caption>
+            Features
+          </caption>
+          <% for (var i = 0; i < features.length; i += 3) { %>
+            <tr>
+              <td>
+                <% var feature = features[i] %>
+                <button class="modelButton" type="button" onclick="selectModel('<%= feature.name %>')">
+                  <a>
+                    <!-- <input name="modelCheckbox" value="<%= model.name %>" /> -->
+                    <img width="200" height="200" src="../images/tool.jpg">
+                    <br />
+                    <%= feature.name %>
+                  </a>
+                </button>
+              </td>
+              <% if ((i+1) < features.length) { %>
+                <td>
+                  <% feature = features[i+1] %>
+                  <button class="modelButton" type="button" onclick="selectModel('<%= feature.name %>')">
+                    <a>
+                      <!-- <input name="modelCheckbox" value="<%= model.name %>" /> -->
+                      <img width="200" height="200" src="../images/tool.jpg">
+                      <br />
+                      <%= feature.name %>
+                    </a>
+                  </button>
+                </td>
+              <% } %>
+              <% if ((i+2) < features.length) { %>
+                <td>
+                  <% feature = features[i+2] %>
+                  <button class="modelButton" type="button" onclick="selectModel('<%= feature.name %>')">
+                    <a>
+                      <!-- <input name="modelCheckbox" value="<%= model.name %>" /> -->
+                      <img width="200" height="200" src="../images/tool.jpg">
+                      <br />
+                      <%= feature.name %>
                     </a>
                   </button>
                 </td>

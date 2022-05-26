@@ -2,17 +2,52 @@
 <html>
     <head>
         <% include ../includes/header.ejs %>
+
+        <link rel="stylesheet" type="text/css" href="/stylesheets/w3schools.css" />
     </head>
 
     <body>
       <div class="main-div">
         <% include ../includes/nav.ejs %>
 
-        <%= title %>
+        <form class="filters" action="/order_submission/add_order" method="GET">
+          Choose the date range: <br />
+          between <input id="startDate" class="filters" type="date"> and
+          <input id="endDate" class="filters" type="date">
 
-        <a href="../test3.pdf" Download>
+
+          <table class="itemsTable">
+            <caption>
+              <button class="addItem" type="button">Select all</button>
+              <button class="addItem" type="button">Deselect all</button>
+            </caption>
+            <tr class="lightf">
+            <% for (var i = 0; i < customers.length; i++) { %>
+              <tr style="text-decoration: line-through">
+               <td class="featureRow">
+                 <%= customers[i].title %>
+               </td>
+              <td class="toggler">
+                 <label class="switch">
+                   <input type="checkbox" name="customers" value="<%= customers[i].name %>" onclick="">
+                   <span class="slider round"></span>
+                 </label>
+               </td>
+             </tr>
+             <% } %>
+           </table>
+           <hr />
+           <button type="submit">Create report</button>
+        </form>
+        <!-- <form>
+
+        </form> -->
+
+
+
+        <!-- <a href="../test3.pdf" Download>
          <button type="button">Download</button>
-         </a>
+         </a> -->
 
         <% include ../includes/footer.ejs %>
       </div>

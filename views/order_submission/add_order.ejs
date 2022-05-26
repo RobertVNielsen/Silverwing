@@ -175,6 +175,7 @@
 
           function selectModel(i) {
             let models = JSON.parse('<%-JSON.stringify(models)%>')
+            let features = JSON.parse('<%-JSON.stringify(features)%>')
 
             let priceElements = document.getElementsByName('price_B');
 
@@ -207,8 +208,18 @@
               document.getElementById('modelName').innerHTML = i;
 
               if (index == -1) { // if no model found
-                document.getElementById('price_B').innerHTML = '???';
-                document.getElementById('default_price_button_B').hidden = true;
+                // document.getElementById('price_B').innerHTML = '???';
+                let feat = -1;
+                for (let f = 0; f < features.length; f++) {
+                  if (features[f].name == i) {
+                    feat = f
+                  }
+                }
+
+                for (let p=0; p<priceElements.length-1; p++) {
+                  priceElements[p].innerHTML = features[feat].prices[p]
+                }
+                document.getElementById('default_price_button_B').setAttribute("onclick", "defaultPrice(" + (-(index+1)) + ")")
               } else { // if model found
                 document.getElementById('modelName').innerHTML = models[index].name;
 
@@ -381,10 +392,10 @@
             if (id == -1) {
               let randomID = Math.random();
 
-              let tempStr = '<tr id="row' + randomID + '" name="rowitem" onclick="populateEditItem(' + randomID + ')">';
-              tempStr += '<td>' + model + '</td>';
-              tempStr += '<td>' + totalPrice + '</td>';
-              tempStr += '<td>' + quantity + '</td>';
+              let tempStr = '<tr id="row' + randomID + '" name="rowitem">';
+              tempStr += '<td onclick="populateEditItem(' + randomID + ')">' + model + '</td>';
+              tempStr += '<td onclick="populateEditItem(' + randomID + ')">' + totalPrice + '</td>';
+              tempStr += '<td onclick="populateEditItem(' + randomID + ')">' + quantity + '</td>';
               tempStr += '<td class="icon"><button type="button" class="delete" onclick="remove('+randomID+')"><img src="../images/bin.png" width="18px" height="auto" /></button></td></tr>';
 
               document.getElementById('itemsTable').innerHTML += tempStr;
@@ -404,9 +415,9 @@
               document.getElementById('inputs').innerHTML += tempStr;
             } else {
               let tempStr = "";
-              tempStr += '<td>' + model + '</td>';
-              tempStr += '<td>' + totalPrice + '</td>';
-              tempStr += '<td>' + quantity + '</td>';
+              tempStr += '<td onclick="populateEditItem(' + id + ')">' + model + '</td>';
+              tempStr += '<td onclick="populateEditItem(' + id + ')">' + totalPrice + '</td>';
+              tempStr += '<td onclick="populateEditItem(' + id + ')">' + quantity + '</td>';
               tempStr += '<td class="icon"><button type="button" class="delete" onclick="remove('+id+')"><img src="../images/bin.png" width="18px" height="auto" /></button></td>';
               document.getElementById("row"+id).innerHTML = tempStr;
 
@@ -474,18 +485,20 @@
           }
 
           function remove(id) {
-            let tr = document.getElementById('row' + id);
-            tr.innerHTML = '';
-            tr.remove();
+            if (confirm("Are you sure you want to delete this order item?")) {
+              let tr = document.getElementById('row' + id);
+              tr.innerHTML = '';
+              tr.remove();
 
-            let model = document.getElementById('model' + id);
-            model.remove();
+              let model = document.getElementById('model' + id);
+              model.remove();
 
-            let price = document.getElementById('price' + id);
-            price.remove();
+              let price = document.getElementById('price' + id);
+              price.remove();
 
-            let quantity = document.getElementById('quantity' + id);
-            quantity.remove();
+              let quantity = document.getElementById('quantity' + id);
+              quantity.remove();
+            }
           }
 
           function loadCustomerOptions() {
@@ -510,6 +523,8 @@
               }
             }
             document.getElementById("customerOptions").selectedIndex = index + 1;
+            console.log(document.getElementById("customerOptions").value)
+            selectCustomer(document.getElementById("customerOptions"))
 
             for (let i = 0; i < editee.items.length; i++) {
               let costs = [];
@@ -528,6 +543,7 @@
             document.getElementById('orderDate').value = editee.orderDate;
             document.getElementById('needDate').value = editee.needDate;
             document.getElementById('notes').innerHTML = editee.notes;
+            document.getElementById('orderType').innerHTML = 'UPDATING ORDER';
           }
 
           function loadForm() {
@@ -537,6 +553,7 @@
             let editee = JSON.parse(temp);
             if (editee) {
               populate(editee);
+              document.getElementById('orderType').innerHTML = 'COPIED ORDER (NEW)';
               setToTodaysDate();
 
               if (<%= isExists %>) {
@@ -569,7 +586,7 @@
 
         <div id="first">
             <form class="submission" action="/order_submission/submit_order" method="POST">
-                <h4>NEW ORDER</h4>
+                <h4 id="orderType">NEW ORDER</h4>
                 <span id="id"></span><br />
 
 
@@ -611,7 +628,7 @@
                 <label for="notes">Notes</label><br/>
                 <textarea id="notes" name="notes"></textarea><br/><br/>
 
-                <button class="wide" type="submit">Submit Order!</button>
+                <button class="wide" type="submit">Save Order!</button>
             </form>
                 <!-- <a href="/signup">Don't have an account?</a> -->
             </div>
